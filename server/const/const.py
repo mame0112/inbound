@@ -1,5 +1,6 @@
 class Consts:
     IS_DEBUG = False
+    NO_USER = -1
     # IS_DEBUG = True
 
 
@@ -39,3 +40,11 @@ class Visit:
     KEY_USER_NAME = "user_name"
     KEY_THUMB_URL = "thumb_url"
     KEY_PLAN = "plan"
+
+
+class HttpResponseCode:
+    OK = 200
+    NO_CONTENT = 204
+    BAD_REQUEST = 400
+    FORBIDDEN = 403
+    NOT_FOUND = 404
