@@ -22,6 +22,7 @@ log = Logger("DatastoreManager")
 class User(Resource):
 
     def get(self):
+        log.debug('get')
         json_data = request.get_json(force=True)
         username = json_data[User.KEY_USER_NAME]
         thumb_url = json_data[User.KEY_THUMB_URL]
@@ -32,14 +33,24 @@ class User(Resource):
     def post(self):
         log.debug('post')
         user = request.json
-        log.debug('post')
 
         dataManager = DatastoreManager()
-        return dataManager.create_user(user)
+        result = dataManager.create_user(user)
+        return result.get_result_json()
 
-    def put(self, userString):
+    def put(self):
+        log.debug('put')
+        user = request.json
+
+        dataManager = DatastoreManager()
+        return dataManager.update_user(user)
+
+
+class Conversation(Resource):
+
+    def get(self):
+        log.debug('get')
         return
-
 
 # @app.route('/users/<int:userid>', methods=['GET'])
 # def get_user(userid=None):
