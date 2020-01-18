@@ -1,5 +1,6 @@
 class Consts:
     IS_DEBUG = False
+    NO_USER = -1
     # IS_DEBUG = True
 
 

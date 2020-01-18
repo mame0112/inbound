@@ -30,10 +30,28 @@ class DatastoreManager:
     # USser
     def get_user(self, user_id):
         self.log.debug('get_user')
-        client = datastore.Client()
-        key = client.key(USER.KEY_USER_ID, user_id)
-        entity = client.get(key)
-        return result
+
+        if user_id == Consts.NO_USER:
+            raise ValueError('User ID cannot be -1')
+
+        try:
+            client = datastore.Client()
+            key = client.key(USER.KEY_USER_ID, user_id)
+            entity = client.get(key)
+
+            userJson = {
+                User.KEY_USER_ID: entity[User.KEY_USER_NAME],
+                User.KEY_USER_NAME: entity[User.KEY_USER_NAME],
+                User.KEY_THUMB_URL: entity[User.KEY_THUMB_URL],
+            }
+
+            return self.result, userJson
+
+        except ValueError as error:
+            self.log.debug(error)
+            result.set_error_message(error)
+            result.set_http_response_code(HttpResponseCode.BAD_REQUEST)
+        return self.result
 
     def create_user(self, userJson):
         self.log.debug('create_user')

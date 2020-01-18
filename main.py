@@ -24,11 +24,16 @@ class User(Resource):
     def get(self):
         log.debug('get')
         json_data = request.get_json(force=True)
-        username = json_data[User.KEY_USER_NAME]
-        thumb_url = json_data[User.KEY_THUMB_URL]
+        # json_data = request.get_json(force=True)
+        # username = json_data[User.KEY_USER_NAME]
+        # thumb_url = json_data[User.KEY_THUMB_URL]
         dataManager = DatastoreManager()
-        dataManager.get_user(username)
-        return jsonify(u=username)
+        res = dataManager.get_user(user_id)
+        result = res[0]
+        if result.get_http_response_code == HttpResponseCode.OK:
+            return res[1]
+        else:
+            return result
 
     def post(self):
         log.debug('post')
