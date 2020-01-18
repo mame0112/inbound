@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VisitStartComponent implements OnInit {
 
-  constructor() { }
+    isOverview = true;
 
-  ngOnInit() {
-  }
+    constructor() { }
+
+    ngOnInit() {
+    }
+
+    onNextButtonClicked() {
+        console.log('onNextButtonClicked');
+        this.isOverview = !this.isOverview;
+    }
 
 }
